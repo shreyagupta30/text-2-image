@@ -1,34 +1,29 @@
 # Text-to-Image Generation with Stable Diffusion
 
-This project implements a text-to-image generation system using the Stable Diffusion model with FastAPI backend and a web interface.
+A web application that generates images from text descriptions using the Stable Diffusion model, featuring a FastAPI backend and React frontend.
 
 ## 🌟 Features
 
-- Text prompt to image generation using Stable Diffusion
-- FastAPI backend with REST API endpoints
-- CLIP text encoding for prompt understanding
-- VAE for image encoding/decoding
-- U-Net architecture for the core diffusion process
-- Fine-tuning capabilities using Flickr8k dataset
+- Text-to-image generation using Stable Diffusion v1.4
+- FastAPI backend with REST API
+- React frontend with real-time image generation
 - Base64 image response format
+- Health check endpoint
 
 ## 🛠️ Project Structure
 
 ```
 text-2-image/
 ├── backend/
-│   ├── model/
-│   │   ├── clip_tokenizer.py  # CLIP text encoding
-│   │   ├── unet.py           # U-Net model
-│   │   └── vae.py            # VAE encoder/decoder
-│   ├── training/
-│   │   ├── dataset.py        # Flickr8k dataset handler
-│   │   └── trainer.py        # Training logic
 │   ├── api/
+│   │   ├── __init__.py
 │   │   └── main.py          # FastAPI endpoints
 │   └── requirements.txt      # Python dependencies
-└── mock-server/             # Development mock server
-    ├── index.js
+└── frontend/
+    ├── src/
+    │   ├── App.js           # React frontend
+    │   └── components/
+    ├── public/
     └── package.json
 ```
 
@@ -53,27 +48,25 @@ pip install -r requirements.txt
 uvicorn api.main:app --reload --port 8000
 ```
 
-### Mock Server Setup (for development)
+### Frontend Setup
 
 1. Install Node.js dependencies:
 ```bash
-cd mock-server
+cd frontend
 npm install
 ```
 
-2. Start the mock server:
+2. Start the development server:
 ```bash
-node index.js
+npm start
 ```
 
-## 🚀 API Usage
+## 🚀 API Endpoints
 
-### Generate Image Endpoint
-
+### Generate Image
 - **URL**: `/generate`
 - **Method**: `POST`
-- **Content-Type**: `application/json`
-- **Request Body**:
+- **Body**:
 ```json
 {
     "prompt": "your text description here"
@@ -86,51 +79,59 @@ node index.js
 }
 ```
 
-## 💻 Development
-
-### Model Components
-
-1. **CLIP Text Encoder** (`model/clip_tokenizer.py`)
-   - Converts text prompts into embeddings
-   - Uses OpenAI's CLIP model
-
-2. **VAE** (`model/vae.py`)
-   - Handles image encoding/decoding
-   - Manages latent space representations
-
-3. **U-Net** (`model/unet.py`)
-   - Core diffusion model
-   - Processes latent representations
-
-### Training
-
-1. Prepare your dataset:
-```python
-from training.dataset import Flickr8kDataset
-dataset = Flickr8kDataset(
-    image_dir="path/to/images",
-    captions_file="path/to/captions.txt"
-)
+### Health Check
+- **URL**: `/health`
+- **Method**: `GET`
+- **Response**:
+```json
+{
+    "status": "healthy"
+}
 ```
 
-2. Initialize trainer:
-```python
-from training.trainer import StableDiffusionTrainer
-trainer = StableDiffusionTrainer(unet, vae, text_encoder, dataset)
-```
+## 💻 Technologies Used
+
+- **Backend**:
+  - FastAPI
+  - Hugging Face Diffusers
+  - PyTorch
+  - Python 3.8+
+
+- **Frontend**:
+  - React
+  - JavaScript/ES6
+  - CSS3
+
+## 🔧 Requirements
+
+- Python 3.8+
+- Node.js 14+
+- npm 6+
+- 8GB+ RAM recommended
+- GPU support (optional but recommended)
+
+## 📝 Environment Variables
+
+None required. The application uses default configurations:
+- Backend runs on `http://localhost:8000`
+- Frontend runs on `http://localhost:3000`
+- Uses Hugging Face's hosted Stable Diffusion v1.4 model
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add some amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
 
-## ✨ Acknowledgments
+## 📜 License
 
-- [Stable Diffusion](https://github.com/CompVis/stable-diffusion) by CompVis
-- [Hugging Face Diffusers](https://github.com/huggingface/diffusers)
-- [CLIP](https://github.com/openai/CLIP) by OpenAI
-- [Flickr8k Dataset](https://www.kaggle.com/datasets/adityajn105/flickr8k) for training
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## 🙏 Acknowledgments
+
+- [Stable Diffusion](https://huggingface.co/CompVis/stable-diffusion-v1-4) by CompVis
+- [Hugging Face](https://huggingface.co/) for model hosting
+- [FastAPI](https://fastapi.tiangolo.com/) for the backend framework
+- [React](https://reactjs.org/) for the frontend framework
