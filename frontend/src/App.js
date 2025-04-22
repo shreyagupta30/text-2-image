@@ -13,7 +13,7 @@ function App() {
     setImageUrl('');
 
     try {
-      const response = await fetch('http://localhost:5050/generate-image', {
+      const response = await fetch('http://localhost:8000/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt }),
@@ -21,14 +21,18 @@ function App() {
 
       const data = await response.json();
 
-      if (data.imageUrl) {
-        setImageUrl(data.imageUrl);
-      } else {
-        setError('No image URL returned.');
+      if (response.ok){
+        if (data.image) {
+          setImageUrl(data.image);
+        } else {
+          setError('No image returned from server');
+        }
+      } else{
+          setError(data.detail || 'Failed to generate image');
       }
     } catch (err) {
-      setError('Something went wrong!');
-      console.error(err);
+        setError('Error occurred: ' + err.message);
+        console.error(err);
     }
 
     setLoading(false);
