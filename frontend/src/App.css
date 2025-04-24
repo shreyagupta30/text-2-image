@@ -1,33 +1,72 @@
-.App {
+.title {
   text-align: center;
-  margin-top: 50px;
-  font-family: Arial, sans-serif;
+  margin-top: 20px;
+  font-size: 28px;
+  color: #333;
 }
 
-input {
+.chat-window {
+  margin: 20px auto;
+  max-width: 800px;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  margin: 10px 0;
+  padding: 0 14px;
+  border-radius: 8px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.message.bot {
+  background: #e6f0ff;
+  align-self: flex-start;
+}
+
+.message.user {
+  background: #dfffd8;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.chat-image {
+  max-width: 100%;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.input-area {
+  display: flex;
+  justify-content: center;
+  margin: 10px auto;
+  max-width: 830px;
+  gap: 10px;
+}
+
+.input-area textarea {
+  width: 100%; /* Ensure it takes the full width of the container */
   padding: 10px;
   font-size: 16px;
-  width: 300px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  min-height: 40px; /* One line tall */
+  max-height: 120px; /* Max height of 3 lines (approx. 40px per line) */
+  resize: none; /* Disable manual resizing */
+  overflow-y: auto; /* Make the textarea scrollable when the content exceeds max-height */
+  transition: height 0.2s ease;
 }
 
-button {
+
+.input-area button {
   padding: 10px 20px;
-  margin-left: 10px;
   font-size: 16px;
-  cursor: pointer;
-}
-
-.image-container {
-  margin-top: 20px;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
-
-.error {
-  color: red;
-  margin-top: 10px;
 }
