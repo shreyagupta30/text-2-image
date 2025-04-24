@@ -22,10 +22,11 @@ class TextPrompt(BaseModel):
     prompt: str
 
 # Initialize the model pipeline
-model_id = "CompVis/stable-diffusion-v1-4"
+model_id = "runwayml/stable-diffusion-v1-5"
 pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float32)
 if torch.cuda.is_available():
     pipe = pipe.to("cuda")
+pipe.load_lora_weights("yunxianjiang/my-lora-diffusion")
 
 @app.post("/generate")
 async def generate_image(prompt: TextPrompt):
